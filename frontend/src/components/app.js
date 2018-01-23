@@ -1,6 +1,7 @@
 import React from "react"
 import LoginForm from "./LoginForm/index"
 import RegisterForm from "./RegisterForm/index"
+import UserData from "./UserData/index"
 
 class App extends React.Component {
 
@@ -15,8 +16,9 @@ class App extends React.Component {
   handleLoginSuccess = user => {
     this.setState({
       accessToken: user.accessToken,
-      userId: user.id
+      userId: user._id
     })
+    // localStorage.setItem("userSettings", JSON.stringify(this.state))
   }
 
   isLoggedIn = () => (
@@ -26,9 +28,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm
-          SuccessfullLogin={this.handleLoginSuccess} />
-        <RegisterForm />
+        {/* <RegisterForm /> */}
+        {this.isLoggedIn()
+          ? <UserData />
+          : <LoginForm SuccessfullLogin={this.handleLoginSuccess} />}
       </div>
     )
   }

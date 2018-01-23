@@ -1,12 +1,13 @@
 import React from "react"
 
-class RegisterForm extends React.Component {
+class UserData extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
-      password: ""
+      bodyweight: "",
+      dailydose: "",
+      goaldose: ""
     }
   }
 
@@ -19,7 +20,7 @@ class RegisterForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
 
-    fetch("http://localhost:8080/user", {
+    fetch("http://localhost:8080/userdata", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -28,8 +29,9 @@ class RegisterForm extends React.Component {
     }).then(response => {
       if (response.status === 201) {
         this.setState({
-          username: "",
-          password: ""
+          bodyweight: "",
+          dailydose: "",
+          goaldose: ""
         }, () => { console.log("State reset") })
       } else if (response.status === 400) {
         console.log(response.status, response.message)
@@ -44,22 +46,29 @@ class RegisterForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>Register</h2>
+        <h2>Userdata</h2>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="text"
-            name="username"
-            placeholder="username"
+            type="number"
+            name="bodyweight"
+            placeholder="bodyweight"
             required
             onChange={this.handleInput}
-            value={this.state.username} />
+            value={this.state.bodyweight} />
           <input
-            type="password"
-            name="password"
-            placeholder="password"
+            type="number"
+            name="dailydose"
+            placeholder="dailydose"
             required
             onChange={this.handleInput}
-            value={this.state.password} />
+            value={this.state.dailydose} />
+          <input
+            type="number"
+            name="goaldose"
+            placeholder="goaldose"
+            required
+            onChange={this.handleInput}
+            value={this.state.goaldose} />
 
           <button type="submit">Save</button>
         </form>
@@ -69,4 +78,4 @@ class RegisterForm extends React.Component {
 
 }
 
-export default RegisterForm
+export default UserData

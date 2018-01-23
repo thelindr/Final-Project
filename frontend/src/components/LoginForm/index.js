@@ -21,15 +21,17 @@ class LoginForm extends React.Component {
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
-        Accept: "application/json, text/plain, */*",
+        Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(this.state)
-    }).then(response => response.json()).then(userJson => {
-      this.props.SuccessfullLogin(userJson)
-      console.log(userJson)
+    }).then(response => response.json()).then(json => {
+      this.props.SuccessfullLogin(json)
+      console.log(json)
+      localStorage.setItem("userid", JSON.stringify(json._id))
+      localStorage.setItem("token", JSON.stringify(json.accessToken))
     }).catch(err => {
-      console.error("Promise rejected", err)
+      console.error("Login failed", err)
     })
     this.setState({
       username: "",
@@ -40,7 +42,7 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div>
-        Login
+        <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
