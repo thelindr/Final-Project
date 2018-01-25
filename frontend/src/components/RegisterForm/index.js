@@ -1,4 +1,5 @@
 import React from "react"
+import "./style.css"
 
 class RegisterForm extends React.Component {
 
@@ -49,7 +50,7 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="RegisterForm">
         <h2>Create User</h2>
         <form onSubmit={this.handleSubmit}>
           <input

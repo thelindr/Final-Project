@@ -69,12 +69,14 @@ class UserData extends React.Component {
   // }
 
   render() {
+    const totaldose = this.state.bodyweight * this.state.goaldose
     return (
       <div className="userData">
         <h2>Userdata</h2>
         <h1>{this.state.bodyweight} kg</h1>
         <h1>{this.state.dailydose} mg/day</h1>
         <h1>{this.state.goaldose} mg/kg</h1>
+        <h1>totaldose: {totaldose} mg</h1>
         <button onClick={this.logoutButtonClicked}>Logout</button>
       </div>
     )

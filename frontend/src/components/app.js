@@ -14,18 +14,20 @@ class App extends React.Component {
     }
   }
 
-  // componentWillMount() {
-  //   localStorage.getItem("userId")
-  //   this.setState(JSON.parse(localStorage.getItem("userId")))
-  // }
+  componentWillMount() {
+    this.setState({
+      userId: localStorage.getItem("userId"),
+      accessToken: localStorage.getItem("accessToken")
+    })
+  }
 
   handleLoginSuccess = user => {
     this.setState({
       accessToken: user.accessToken,
       userId: user._id
     })
-    localStorage.setItem("userId", JSON.stringify(this.state.userId))
-    localStorage.setItem("accessToken", JSON.stringify(this.state.accessToken))
+    localStorage.setItem("userId", this.state.userId)
+    localStorage.setItem("accessToken", this.state.accessToken)
   }
 
   isLoggedIn = () => (
