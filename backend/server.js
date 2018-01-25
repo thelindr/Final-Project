@@ -24,7 +24,7 @@ mongoose.Promise = Promise
 mongoose.connection.on("error", err => console.error("Connection error:", err))
 mongoose.connection.once("open", () => console.log("Connected to mongodb"))
 
-const Schema = mongoose.Schema
+// const Schema = mongoose.Schema
 
 const User = mongoose.model("User", {
   username: {
@@ -40,32 +40,46 @@ const User = mongoose.model("User", {
   accessToken: {
     type: String,
     default: () => uuid()
+  },
+  bodyweight: {
+    type: String
+  },
+  dailydose: {
+    type: String
+  },
+  goaldose: {
+    type: String
   }
 })
 
-const Userdata = mongoose.model("Userdata", {
-  weight: {
-    type: Number,
-    required: true
-  },
-  dailydose: {
-    type: Number,
-    required: true
-  },
-  goaldose: {
-    type: Number,
-    required: true
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  }
-})
+// const Userdata = mongoose.model("Userdata", {
+//   weight: {
+//     type: Number,
+//     required: true
+//   },
+//   dailydose: {
+//     type: Number,
+//     required: true
+//   },
+//   goaldose: {
+//     type: Number,
+//     required: true
+//   },
+//   userId: {
+//     type: Schema.Types.ObjectId,
+//     ref: "User"
+//   }
+// })
 
 app.post("/users", (req, res) => {
   const { username } = req.body
+  const { bodyweight } = req.body
+  const { dailydose } = req.body
+  const { goaldose } = req.body
   const password = bcrypt.hashSync(req.body.password)
-  const user = new User({ username, password })
+  const user = new User({
+    username, password, bodyweight, dailydose, goaldose
+  })
 
   user.save()
     .then(() => { res.status(201).send("User was created!") })
@@ -78,19 +92,19 @@ app.get("/users", (req, res) => {
   })
 })
 
-app.post("/userdata", (req, res) => {
-  const userdata = new Userdata(req.body)
-
-  userdata.save()
-    .then(() => { res.status(201).send("Userdata was saved!") })
-    .catch(err => { res.status(400).send(err) })
-})
-
-app.get("/userdata", (req, res) => {
-  Userdata.find().then(allUserdata => {
-    res.json(allUserdata)
-  })
-})
+// app.post("/userdata", (req, res) => {
+//   const userdata = new Userdata(req.body)
+//
+//   userdata.save()
+//     .then(() => { res.status(201).send("Userdata was saved!") })
+//     .catch(err => { res.status(400).send(err) })
+// })
+//
+// app.get("/userdata", (req, res) => {
+//   Userdata.find().then(allUserdata => {
+//     res.json(allUserdata)
+//   })
+// })
 
 app.post("/login", (req, res) => {
   User.findOne({ username: req.body.username })
@@ -102,27 +116,50 @@ app.post("/login", (req, res) => {
       }
     })
 })
+//
+// const findUser = (req, res, next) => {
+//   User.findById(req.params.id)
+//     .then(user => {
+//       if (user.accessToken === req.headers.accessToken) {
+//         req.user = user
+//         next()
+//       } else {
+//         res.json({ message: "error" })
+//       }
+//     })
+// }
 
 const findUser = (req, res, next) => {
-  User.findById(req.params.id)
-    .then(user => {
-      if (user.accessToken === req.headers.token) {
-        req.user = user
-        next()
-      } else {
-        res.status(401).send("Unauthorized")
-      }
-    })
+  User.findOne({ _id: req.params.id }).then(user => {
+    if (user.accessToken === req.headers.token) {
+      req.bodyweight = user.bodyweight
+      req.dailydose = user.dailydose
+      req.goaldose = user.goaldose
+      next()
+    } else {
+      res.json({ message: "Incorrect accessToken" })
+    }
+  }).catch(err => {
+    res.status(400).json({ message: "Incorrect userId", error: err })
+  })
 }
 
 app.use("/users/:id", findUser)
 
 app.get("/users/:id", (req, res) => {
-  res.json({
-    requestingUserId: req.params.id,
-    requestToken: req.headers.token
+  res.status(200).json({
+    bodyweight: req.bodyweight,
+    dailydose: req.dailydose,
+    goaldose: req.goaldose
   })
 })
+
+// app.post("/users/:id", (req, res) => {
+//   // const condition = { _id: req.params.id }
+//   User.save(req.body)
+//     .then(() => { res.status(201).send("User updated in mongo") })
+//     .catch(err => { res.status(400).send(err) })
+// })
 
 // Add more endpoints here!
 

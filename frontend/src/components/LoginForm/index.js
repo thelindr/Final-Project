@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "react-router-dom"
+import "./style.css"
 
 class LoginForm extends React.Component {
 
@@ -28,8 +30,6 @@ class LoginForm extends React.Component {
     }).then(response => response.json()).then(json => {
       this.props.SuccessfullLogin(json)
       console.log(json)
-      localStorage.setItem("userid", JSON.stringify(json._id))
-      localStorage.setItem("token", JSON.stringify(json.accessToken))
     }).catch(err => {
       console.error("Login failed", err)
     })
@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="LoginForm">
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -60,6 +60,7 @@ class LoginForm extends React.Component {
             value={this.state.password} />
           <button type="submit">Login</button>
         </form>
+        <button> <Link to="/register"> New user? </Link></button>
 
       </div>
     )
