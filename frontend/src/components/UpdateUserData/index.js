@@ -1,17 +1,15 @@
 import React from "react"
 import "./style.css"
 
-class RegisterForm extends React.Component {
+class UpdateUserData extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
-      password: "",
       bodyweight: "",
       dailydose: "",
       goaldose: "",
-      message: ""
+      dayspassed: ""
     }
   }
 
@@ -23,9 +21,11 @@ class RegisterForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
+    const headers = new Headers()
+    headers.append("token", this.props.accessToken)
 
-    fetch("http://localhost:8080/users", {
-      method: "POST",
+    fetch(`http://localhost:8080/users/${this.props.userId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -33,12 +33,10 @@ class RegisterForm extends React.Component {
     }).then(response => {
       if (response.status === 201) {
         this.setState({
-          username: "",
-          password: "",
           bodyweight: "",
           dailydose: "",
           goaldose: "",
-          message: "User created!"
+          dayspassed: ""
         }, () => { console.log("State reset") })
       } else if (response.status === 400) {
         console.log(response.status, response.message)
@@ -50,31 +48,11 @@ class RegisterForm extends React.Component {
     })
   }
 
-  getMessagereply = () => {
-    if (this.state.message) {
-      return <p>{this.state.message}</p>
-    }
-  }
-
   render() {
     return (
       <div className="RegisterForm">
-        <h2>Create User</h2>
+        <h2>UpdateUserData</h2>
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            required
-            onChange={this.handleInput}
-            value={this.state.username} />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            required
-            onChange={this.handleInput}
-            value={this.state.password} />
           <input
             type="number"
             name="bodyweight"
@@ -97,9 +75,14 @@ class RegisterForm extends React.Component {
             onChange={this.handleInput}
             value={this.state.goaldose} />
           <label>Recommended cumulative dose is 120-150 mg/kg</label>
-          <div id="message">
-            {this.getMessagereply()}
-          </div>
+          <input
+            type="number"
+            name="dayspassed"
+            placeholder="days passed"
+            required
+            onChange={this.handleInput}
+            value={this.state.dayspassed} />
+
           <button type="submit">Save</button>
         </form>
       </div>
@@ -108,4 +91,4 @@ class RegisterForm extends React.Component {
 
 }
 
-export default RegisterForm
+export default UpdateUserData

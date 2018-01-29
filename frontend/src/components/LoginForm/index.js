@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import RegisterForm from "../RegisterForm/index"
 import "./style.css"
 
 class LoginForm extends React.Component {
@@ -8,7 +9,8 @@ class LoginForm extends React.Component {
     super(props)
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      isHidden: true
     }
   }
 
@@ -39,6 +41,19 @@ class LoginForm extends React.Component {
     })
   }
 
+  getButtontext = () => {
+    if (this.state.isHidden) {
+      return "New User?"
+    } else {
+      return "Close"
+    }
+  }
+
+  handleClick = () => {
+    const toggleMode = !this.state.isHidden
+    this.setState({ isHidden: toggleMode })
+  }
+
   render() {
     return (
       <div className="LoginForm">
@@ -60,8 +75,8 @@ class LoginForm extends React.Component {
             value={this.state.password} />
           <button type="submit">Login</button>
         </form>
-        <button> <Link to="/register"> New user? </Link></button>
-
+        <button onClick={this.handleClick}>{this.getButtontext()}</button>
+        {!this.state.isHidden && <RegisterForm />}
       </div>
     )
   }

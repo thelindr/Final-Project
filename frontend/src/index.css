@@ -21,34 +21,62 @@ input {
   height: 40px;
   margin: auto;
   margin-top: 2vh;
-  padding: 50px;
+  padding: 20px;
   border-style: solid;
-  font-size: 40px;
-  border-radius: 28px;
+  border-width: 1px;
+  font-size: 20px;
+  border-radius: 15px;
 }
 
 button {
   background: pink;
   width: 30%;
-  font-size: 30px;
-  padding: 15px 20px 15px 20px;
-  border-radius: 28px;
+  font-size: 14px;
+  padding: 15px;
+  border-radius: 15px;
   text-decoration: none;
   margin-top: 2vh;
 }
 
 h2 {
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
 }
 
 label {
-  font-size: 20px;
+  font-size: 14px;
   font-style: italic;
+  text-align: center;
 }
 
 a {
   text-decoration: none;
   color: black;
+}
+
+@media (min-width: 481px) and (max-width: 899px) {
+  form {
+    width: 50%;
+  }
+
+}
+@media (min-width: 900px) {
+  form {
+    width: 30%;
+  }
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  label {
+    font-size: 16px;
+  }
+  button {
+
+  }
 }

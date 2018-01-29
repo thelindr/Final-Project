@@ -30,8 +30,7 @@ const User = mongoose.model("User", {
   username: {
     type: String,
     unique: true,
-    required: true,
-    trim: true
+    required: true
   },
   password: {
     type: String,
@@ -42,13 +41,21 @@ const User = mongoose.model("User", {
     default: () => uuid()
   },
   bodyweight: {
-    type: String
+    type: Number
   },
   dailydose: {
-    type: String
+    type: Number
   },
   goaldose: {
-    type: String
+    type: Number
+  },
+  dayspassed: {
+    type: Number,
+    default: 0
+  },
+  dosetaken: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -135,6 +142,8 @@ const findUser = (req, res, next) => {
       req.bodyweight = user.bodyweight
       req.dailydose = user.dailydose
       req.goaldose = user.goaldose
+      req.dayspassed = user.dayspassed
+      req.dosetaken = user.dosetaken
       next()
     } else {
       res.json({ message: "Incorrect accessToken" })
@@ -144,13 +153,22 @@ const findUser = (req, res, next) => {
   })
 }
 
+app.put("/users/:id", (req, res) => {
+  const condition = { _id: req.params.id }
+  User.update(condition, req.body)
+    .then(() => { res.status(201).send("User data updated") })
+    .catch(err => { res.status(400).send(err) })
+})
+
 app.use("/users/:id", findUser)
 
 app.get("/users/:id", (req, res) => {
   res.status(200).json({
     bodyweight: req.bodyweight,
     dailydose: req.dailydose,
-    goaldose: req.goaldose
+    goaldose: req.goaldose,
+    dayspassed: req.dayspassed,
+    dosetaken: req.dosetaken
   })
 })
 

@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import "./style.css"
 
 class UserData extends React.Component {
@@ -8,15 +9,15 @@ class UserData extends React.Component {
     this.state = {
       bodyweight: "",
       dailydose: "",
-      goaldose: ""
+      goaldose: "",
+      dayspassed: "",
+      dosetaken: ""
     }
   }
 
   componentDidMount() {
     const headers = new Headers()
     headers.append("token", this.props.accessToken)
-    // (JSON.parse(localStorage.getItem("accessToken")))
-    // (JSON.parse(localStorage.getItem("userId"))) Why cant I fetch these from localStorage?
 
     fetch(`http://localhost:8080/users/${this.props.userId}`, { headers }).then(response => (
       response.json()
@@ -24,8 +25,45 @@ class UserData extends React.Component {
       this.setState({
         bodyweight: json.bodyweight,
         dailydose: json.dailydose,
-        goaldose: json.goaldose
+        goaldose: json.goaldose,
+        dayspassed: json.dayspassed,
+        dosetaken: json.dosetaken
       })
+    }).catch(err => {
+      console.log("Error", err)
+    })
+  }
+
+  // updateCounter = () => {
+  //   const newAmountOfDays = this.state.dayspassed + 1
+  //   this.setState({
+  //     dayspassed: newAmountOfDays
+  //   })
+  // }
+
+  updateCounter = () => {
+    const newAmountOfDays = this.state.dayspassed + 1
+    const doseTakenSaved = this.state.dosetaken + this.state.dailydose
+    this.setState({
+      dayspassed: newAmountOfDays,
+      dosetaken: doseTakenSaved
+    })
+    const headers = new Headers()
+    headers.append("token", this.props.accessToken)
+    fetch(`http://localhost:8080/users/${this.props.userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state)
+    }).then(response => {
+      if (response.status === 201) {
+        console.log("State updated")
+      } else if (response.status === 400) {
+        console.log(response.status, response.message)
+      } else {
+        console.log("Unexpected error")
+      }
     }).catch(err => {
       console.log("Error", err)
     })
@@ -35,49 +73,26 @@ class UserData extends React.Component {
     this.props.Logout()
   }
 
-  // handleInput = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   })
-  // }
-  //
-  // handleSubmit = event => {
-  //   event.preventDefault()
-  //
-  //   fetch(`http://localhost:8080/users/${this.props.userId}`, {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json, text/plain, */*",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(this.state)
-  //   }).then(response => {
-  //     if (response.status === 201) {
-  //       this.setState({
-  //         bodyweight: "",
-  //         dailydose: "",
-  //         goaldose: ""
-  //       }, () => { console.log("State was reset") })
-  //     } else if (response.status === 400) {
-  //       console.log(response.status, response.message)
-  //     } else {
-  //       console.log("Unexpected error")
-  //     }
-  //   }).catch(err => {
-  //     console.log("Error", err)
-  //   })
-  // }
-
   render() {
     const totaldose = this.state.bodyweight * this.state.goaldose
+    const daysleft = (totaldose - this.state.dosetaken) / this.state.dailydose
+
     return (
       <div className="userData">
-        <h2>Userdata</h2>
-        <h1>{this.state.bodyweight} kg</h1>
-        <h1>{this.state.dailydose} mg/day</h1>
-        <h1>{this.state.goaldose} mg/kg</h1>
-        <h1>totaldose: {totaldose} mg</h1>
+        <h2>Isotretinoin log</h2>
+        <h3>{this.state.bodyweight} kg</h3>
+        <h3>{this.state.dailydose} mg/day</h3>
+        <h3>{this.state.goaldose} mg/kg</h3>
+        <h3>totaldose: {totaldose} mg</h3>
+        <h3>Days passed: {this.state.dayspassed} </h3>
+        <h3>Days left: {daysleft} </h3>
+        <h3>Dose taken: {this.state.dosetaken} mg</h3>
+        <button
+          name="dayspassed"
+          onClick={this.updateCounter}> Take dose
+        </button>
         <button onClick={this.logoutButtonClicked}>Logout</button>
+        <button><Link to="/update">Update</Link></button>
       </div>
     )
   }

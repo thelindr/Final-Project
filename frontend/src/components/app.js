@@ -1,7 +1,8 @@
 import React from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import LoginForm from "./LoginForm/index"
-import RegisterForm from "./RegisterForm/index"
+import UpdateUserData from "./UpdateUserData/index"
+import UpdateDaysPassed from "./UpdateDaysPassed/index"
 import UserData from "./UserData/index"
 
 class App extends React.Component {
@@ -53,10 +54,18 @@ class App extends React.Component {
               Logout={this.handleLogout} />
             : <LoginForm
               SuccessfullLogin={this.handleLoginSuccess} />}
+          {/* <UpdateUserData
+            userId={this.state.userId}
+            accessToken={this.state.accessToken} /> */}
           <Route
             exact
-            path="/register"
-            component={RegisterForm} />
+            path="/update"
+            render={routeProps =>
+              <UpdateUserData
+                {...routeProps}
+                userId={this.state.userId}
+                accessToken={this.state.accessToken} />
+            } />
         </div>
       </BrowserRouter>
     )
