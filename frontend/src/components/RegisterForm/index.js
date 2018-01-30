@@ -38,7 +38,7 @@ class RegisterForm extends React.Component {
           bodyweight: "",
           dailydose: "",
           goaldose: "",
-          message: "User created!"
+          message: "User created! You should now be able to log in."
         }, () => { console.log("State reset") })
       } else if (response.status === 400) {
         console.log(response.status, response.message)

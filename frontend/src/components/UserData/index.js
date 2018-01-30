@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import Visualize from "./visualize"
 import "./style.css"
 
 class UserData extends React.Component {
@@ -33,13 +34,6 @@ class UserData extends React.Component {
       console.log("Error", err)
     })
   }
-
-  // updateCounter = () => {
-  //   const newAmountOfDays = this.state.dayspassed + 1
-  //   this.setState({
-  //     dayspassed: newAmountOfDays
-  //   })
-  // }
 
   updateCounter = () => {
     const newAmountOfDays = this.state.dayspassed + 1
@@ -84,15 +78,18 @@ class UserData extends React.Component {
         <h3>{this.state.dailydose} mg/day</h3>
         <h3>{this.state.goaldose} mg/kg</h3>
         <h3>totaldose: {totaldose} mg</h3>
-        <h3>Days passed: {this.state.dayspassed} </h3>
+        <h3>Days passed: {this.state.dayspassed}</h3>
         <h3>Days left: {daysleft} </h3>
         <h3>Dose taken: {this.state.dosetaken} mg</h3>
         <button
-          name="dayspassed"
+          id="dayspassed"
           onClick={this.updateCounter}> Take dose
         </button>
+        <Visualize
+          dayspassed={this.state.dayspassed}
+          daysleft={daysleft} />
         <button onClick={this.logoutButtonClicked}>Logout</button>
-        <button><Link to="/update">Update</Link></button>
+        <button><Link to="/settings">Settings</Link></button>
       </div>
     )
   }

@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import RegisterForm from "../RegisterForm/index"
 import "./style.css"
 

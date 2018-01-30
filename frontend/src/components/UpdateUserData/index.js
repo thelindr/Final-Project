@@ -1,4 +1,5 @@
 import React from "react"
+import { withRouter, Link } from "react-router-dom"
 import "./style.css"
 
 class UpdateUserData extends React.Component {
@@ -9,7 +10,8 @@ class UpdateUserData extends React.Component {
       bodyweight: "",
       dailydose: "",
       goaldose: "",
-      dayspassed: ""
+      dayspassed: "",
+      dosetaken: ""
     }
   }
 
@@ -36,8 +38,12 @@ class UpdateUserData extends React.Component {
           bodyweight: "",
           dailydose: "",
           goaldose: "",
-          dayspassed: ""
-        }, () => { console.log("State reset") })
+          dayspassed: "",
+          dosetaken: ""
+        }, () => {
+          console.log("State reset")
+          this.props.history.push("/")
+        })
       } else if (response.status === 400) {
         console.log(response.status, response.message)
       } else {
@@ -51,7 +57,7 @@ class UpdateUserData extends React.Component {
   render() {
     return (
       <div className="RegisterForm">
-        <h2>UpdateUserData</h2>
+        <h2>Settings</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             type="number"
@@ -82,13 +88,21 @@ class UpdateUserData extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.dayspassed} />
+          <input
+            type="number"
+            name="dosetaken"
+            placeholder="dose taken"
+            required
+            onChange={this.handleInput}
+            value={this.state.dosetaken} />
 
-          <button type="submit">Save</button>
+          <button type="submit">Update</button>
         </form>
+        <button><Link to="/">Close</Link></button>
       </div>
     )
   }
 
 }
 
-export default UpdateUserData
+export default withRouter(UpdateUserData)

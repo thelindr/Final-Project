@@ -2,3 +2,14 @@
   width: 80%;
   margin: auto;
 }
+
+#dayspassed {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #5ca943;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 4px 4px #999;
+  letter-spacing: 2px;
+}

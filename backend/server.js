@@ -59,25 +59,6 @@ const User = mongoose.model("User", {
   }
 })
 
-// const Userdata = mongoose.model("Userdata", {
-//   weight: {
-//     type: Number,
-//     required: true
-//   },
-//   dailydose: {
-//     type: Number,
-//     required: true
-//   },
-//   goaldose: {
-//     type: Number,
-//     required: true
-//   },
-//   userId: {
-//     type: Schema.Types.ObjectId,
-//     ref: "User"
-//   }
-// })
-
 app.post("/users", (req, res) => {
   const { username } = req.body
   const { bodyweight } = req.body
@@ -99,20 +80,6 @@ app.get("/users", (req, res) => {
   })
 })
 
-// app.post("/userdata", (req, res) => {
-//   const userdata = new Userdata(req.body)
-//
-//   userdata.save()
-//     .then(() => { res.status(201).send("Userdata was saved!") })
-//     .catch(err => { res.status(400).send(err) })
-// })
-//
-// app.get("/userdata", (req, res) => {
-//   Userdata.find().then(allUserdata => {
-//     res.json(allUserdata)
-//   })
-// })
-
 app.post("/login", (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {
@@ -123,18 +90,6 @@ app.post("/login", (req, res) => {
       }
     })
 })
-//
-// const findUser = (req, res, next) => {
-//   User.findById(req.params.id)
-//     .then(user => {
-//       if (user.accessToken === req.headers.accessToken) {
-//         req.user = user
-//         next()
-//       } else {
-//         res.json({ message: "error" })
-//       }
-//     })
-// }
 
 const findUser = (req, res, next) => {
   User.findOne({ _id: req.params.id }).then(user => {
@@ -171,14 +126,5 @@ app.get("/users/:id", (req, res) => {
     dosetaken: req.dosetaken
   })
 })
-
-// app.post("/users/:id", (req, res) => {
-//   // const condition = { _id: req.params.id }
-//   User.save(req.body)
-//     .then(() => { res.status(201).send("User updated in mongo") })
-//     .catch(err => { res.status(400).send(err) })
-// })
-
-// Add more endpoints here!
 
 app.listen(8080, () => console.log("API listening on port 8080!"))

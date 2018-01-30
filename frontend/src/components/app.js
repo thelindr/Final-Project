@@ -2,7 +2,6 @@ import React from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import LoginForm from "./LoginForm/index"
 import UpdateUserData from "./UpdateUserData/index"
-import UpdateDaysPassed from "./UpdateDaysPassed/index"
 import UserData from "./UserData/index"
 
 class App extends React.Component {
@@ -54,12 +53,9 @@ class App extends React.Component {
               Logout={this.handleLogout} />
             : <LoginForm
               SuccessfullLogin={this.handleLoginSuccess} />}
-          {/* <UpdateUserData
-            userId={this.state.userId}
-            accessToken={this.state.accessToken} /> */}
           <Route
             exact
-            path="/update"
+            path="/settings"
             render={routeProps =>
               <UpdateUserData
                 {...routeProps}
