@@ -76,22 +76,30 @@ class UserData extends React.Component {
       <div>
         <Header />
         <div className="userData">
-          <h3>{this.state.bodyweight} kg</h3>
-          <h3>{this.state.dailydose} mg/day</h3>
-          <h3>{this.state.goaldose} mg/kg</h3>
-          <h3>totaldose: {totaldose} mg</h3>
-          <h3>Days passed: {this.state.dayspassed}</h3>
-          <h3>Days left: {daysleft} </h3>
-          <h3>Dose taken: {this.state.dosetaken} mg</h3>
+          <div className="stateWrapper">
+            <p>Weight: {this.state.bodyweight} kg</p>
+            <p>Dose per day: {this.state.dailydose} mg/day</p>
+            <p>Goaldose: {this.state.goaldose} mg/kg</p>
+          </div>
+          <div className="calcWrapper">
+            <div className="card" id="first"><h3>Dose Taken:</h3><p>{this.state.dosetaken} mg</p></div>
+            <div className="card" id="second"><h3>Total Dose:</h3><p>{totaldose} mg</p></div>
+            <div className="card" id="third"><h3>Days Passed:</h3><p>{this.state.dayspassed}</p></div>
+            <div className="card" id="fourth"><h3>Days Left:</h3><p>{daysleft}</p></div>
+          </div>
           <Visualize
             dayspassed={this.state.dayspassed}
             daysleft={daysleft} />
-          <button
-            id="dayspassed"
-            onClick={this.updateCounter}> Take dose
-          </button>
-          <button onClick={this.logoutButtonClicked}>Logout</button>
-          <button><Link to="/settings">Settings</Link></button>
+          <div className="buttonWrapper">
+            <button
+              id="dayspassed"
+              onClick={this.updateCounter}> Take dose
+            </button>
+            <div className="buttonFoot">
+              <button onClick={this.logoutButtonClicked}>Logout</button>
+              <button><Link to="/settings">Settings</Link></button>
+            </div>
+          </div>
         </div>
       </div>
     )
