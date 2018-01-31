@@ -50,7 +50,8 @@ class App extends React.Component {
             ? <UserData
               userId={this.state.userId}
               accessToken={this.state.accessToken}
-              Logout={this.handleLogout} />
+              Logout={this.handleLogout}
+              updateApp={this.updateStateInApp} />
             : <LoginForm
               SuccessfullLogin={this.handleLoginSuccess} />}
           <Route
@@ -60,7 +61,12 @@ class App extends React.Component {
               <UpdateUserData
                 {...routeProps}
                 userId={this.state.userId}
-                accessToken={this.state.accessToken} />
+                accessToken={this.state.accessToken}
+                bodyweight={this.state.bodyweight}
+                dailydose={this.state.dailydose}
+                goaldose={this.state.goaldose}
+                dayspassed={this.state.dayspassed}
+                dosetaken={this.state.dosetaken} />
             } />
         </div>
       </BrowserRouter>

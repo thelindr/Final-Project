@@ -3,18 +3,17 @@
 }
 
 .progressBar {
-  width: 100%;
-				background-color: #b9e2db;
-				padding: 3px;
-				border-radius: 3px;
-				box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+	background-color: #ffca00;
+  height: 40px;
+	padding: 3px;
+  border-radius: 3px;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
 }
 
 .progressBarFill {
   display: block;
-				height: 22px;
-				background-color: #ec6c6c;
-				border-radius: 3px;
-
-				transition: width 500ms ease-in-out;
+	height: 40px;
+	background-color: #ec6c6c;
+	border-radius: 3px;
+  transition: width 500ms ease-in-out;
 }

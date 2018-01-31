@@ -11,7 +11,7 @@ class Visualize extends React.Component {
         <div className="progressBar">
           <span className="progressBarFill" style={{ width: percentageDone * 3 }} />
         </div>
-        {percentageDone} %
+        <h2>{percentageDone} % Done!</h2>
       </div>
     )
   }

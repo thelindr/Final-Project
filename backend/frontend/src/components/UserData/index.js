@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import Visualize from "./visualize"
+import Header from "../header"
 import "./style.css"
 
 class UserData extends React.Component {
@@ -72,24 +73,26 @@ class UserData extends React.Component {
     const daysleft = (totaldose - this.state.dosetaken) / this.state.dailydose
 
     return (
-      <div className="userData">
-        <h2>Isotretinoin log</h2>
-        <h3>{this.state.bodyweight} kg</h3>
-        <h3>{this.state.dailydose} mg/day</h3>
-        <h3>{this.state.goaldose} mg/kg</h3>
-        <h3>totaldose: {totaldose} mg</h3>
-        <h3>Days passed: {this.state.dayspassed}</h3>
-        <h3>Days left: {daysleft} </h3>
-        <h3>Dose taken: {this.state.dosetaken} mg</h3>
-        <button
-          id="dayspassed"
-          onClick={this.updateCounter}> Take dose
-        </button>
-        <Visualize
-          dayspassed={this.state.dayspassed}
-          daysleft={daysleft} />
-        <button onClick={this.logoutButtonClicked}>Logout</button>
-        <button><Link to="/settings">Settings</Link></button>
+      <div>
+        <Header />
+        <div className="userData">
+          <h3>{this.state.bodyweight} kg</h3>
+          <h3>{this.state.dailydose} mg/day</h3>
+          <h3>{this.state.goaldose} mg/kg</h3>
+          <h3>totaldose: {totaldose} mg</h3>
+          <h3>Days passed: {this.state.dayspassed}</h3>
+          <h3>Days left: {daysleft} </h3>
+          <h3>Dose taken: {this.state.dosetaken} mg</h3>
+          <Visualize
+            dayspassed={this.state.dayspassed}
+            daysleft={daysleft} />
+          <button
+            id="dayspassed"
+            onClick={this.updateCounter}> Take dose
+          </button>
+          <button onClick={this.logoutButtonClicked}>Logout</button>
+          <button><Link to="/settings">Settings</Link></button>
+        </div>
       </div>
     )
   }
