@@ -15,7 +15,8 @@ app.use(cors())
 
 // Connect to MongoDB, on the "products-api" database. If the db doesn't
 // exist, mongo will create it.
-mongoose.connect("mongodb://localhost/final-project-api", { useMongoClient: true })
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/finalproject"
+mongoose.connect(mongoUrl, { useMongoClient: true })
 
 // This makes mongo use ES6 promises, instead of its own implementation
 mongoose.Promise = Promise
@@ -127,4 +128,7 @@ app.get("/users/:id", (req, res) => {
   })
 })
 
-app.listen(8080, () => console.log("API listening on port 8080!"))
+const port = process.env.PORT || 8080
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})
