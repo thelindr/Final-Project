@@ -56,7 +56,7 @@ class UpdateUserData extends React.Component {
 
   render() {
     return (
-      <div className="UpdateForm">
+      <div className="RegisterForm">
         <h2>Settings</h2>
         <form onSubmit={this.handleSubmit}>
           <input

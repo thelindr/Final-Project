@@ -3,6 +3,7 @@
 }
 
 .progressBar {
+  width: 100%;
 				background-color: #b9e2db;
 				padding: 3px;
 				border-radius: 3px;
