@@ -9,7 +9,7 @@ class Visualize extends React.Component {
     return (
       <div className="wrapper">
         <div className="progressBar">
-          <span className="progressBarFill" style={{ width: percentageDone * 3 }}>{percentageDone} % Done!</span>
+          <span className="progressBarFill" style={{ width: `${percentageDone}%` }}>{percentageDone} % Done!</span>
         </div>
       </div>
     )

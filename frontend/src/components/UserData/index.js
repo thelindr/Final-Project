@@ -42,25 +42,26 @@ class UserData extends React.Component {
     this.setState({
       dayspassed: newAmountOfDays,
       dosetaken: doseTakenSaved
-    })
-    const headers = new Headers()
-    headers.append("token", this.props.accessToken)
-    fetch(`http://localhost:8080/users/${this.props.userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(this.state)
-    }).then(response => {
-      if (response.status === 201) {
-        console.log("State updated")
-      } else if (response.status === 400) {
-        console.log(response.status, response.message)
-      } else {
-        console.log("Unexpected error")
-      }
-    }).catch(err => {
-      console.log("Error", err)
+    }, () => { // Callback function, invoked after lines above
+      const headers = new Headers()
+      headers.append("token", this.props.accessToken)
+      fetch(`http://localhost:8080/users/${this.props.userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.state)
+      }).then(response => {
+        if (response.status === 201) {
+          console.log("State updated")
+        } else if (response.status === 400) {
+          console.log(response.status, response.message)
+        } else {
+          console.log("Unexpected error")
+        }
+      }).catch(err => {
+        console.log("Error", err)
+      })
     })
   }
 
@@ -73,32 +74,30 @@ class UserData extends React.Component {
     const daysleft = (totaldose - this.state.dosetaken) / this.state.dailydose
 
     return (
-      <div>
+      <div className="userData">
         <Header />
-        <div className="userData">
-          {/* <div className="stateWrapper">
+        <div className="stateWrapper">
             <p>Weight: {this.state.bodyweight} kg</p>
             <p>Dose per day: {this.state.dailydose} mg/day</p>
             <p>Goaldose: {this.state.goaldose} mg/kg</p>
-          </div> */}
-          <div className="calcWrapper">
-            <div className="card" id="first"><h3>Dose Taken:</h3><p>{this.state.dosetaken} mg</p></div>
-            <div className="card" id="second"><h3>Total Dose:</h3><p>{totaldose} mg</p></div>
-            <div className="card" id="third"><h3>Days Passed:</h3><p>{this.state.dayspassed}</p></div>
-            <div className="card" id="fourth"><h3>Days Left:</h3><p>{daysleft}</p></div>
           </div>
-          <Visualize
-            dayspassed={this.state.dayspassed}
-            daysleft={daysleft} />
-          <div className="buttonWrapper">
-            <button
-              id="dayspassed"
-              onClick={this.updateCounter}> Take dose
-            </button>
-            <div className="buttonFoot">
-              <button onClick={this.logoutButtonClicked}>Logout</button>
-              <button><Link to="/settings">Settings</Link></button>
-            </div>
+        <div className="calcWrapper">
+          <div className="card" id="first"><h3>Dose Taken:</h3><p>{this.state.dosetaken} mg</p></div>
+          <div className="card" id="second"><h3>Total Dose:</h3><p>{totaldose} mg</p></div>
+          <div className="card" id="third"><h3>Days Passed:</h3><p>{this.state.dayspassed}</p></div>
+          <div className="card" id="fourth"><h3>Days Left:</h3><p>{daysleft}</p></div>
+        </div>
+        <Visualize
+          dayspassed={this.state.dayspassed}
+          daysleft={daysleft} />
+        <div className="buttonWrapper">
+          <button
+            id="dayspassed"
+            onClick={this.updateCounter}> Take dose
+          </button>
+          <div className="buttonFoot">
+            <button onClick={this.logoutButtonClicked}>Logout</button>
+            <button><Link to="/settings">Settings</Link></button>
           </div>
         </div>
       </div>

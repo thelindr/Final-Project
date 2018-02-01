@@ -1,7 +1,9 @@
 
 .userData {
   width: 80%;
+  height: 100%;
   margin: auto;
+  z-index: 1;
 }
 
 #dayspassed {
@@ -60,15 +62,15 @@
 }
 
 #first {
-  background-color: #ff87874f;
+  background-color: #ff87872e;
 }
 
 #second {
-  background-color: #ff87879c;
+  background-color: #ff87874d;
 }
 
 #third {
-  background-color: #ff8787cf;
+  background-color: #ff8787a1;
 }
 
 #fourth {
