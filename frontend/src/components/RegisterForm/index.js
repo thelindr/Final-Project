@@ -24,7 +24,7 @@ class RegisterForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
 
-    fetch("http://localhost:8080/users", {
+    fetch("https://isotretinoin-log.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -61,6 +61,9 @@ class RegisterForm extends React.Component {
       <div className="RegisterForm">
         <h2>Create User</h2>
         <form onSubmit={this.handleSubmit}>
+          <div id="message">
+            <p>{this.getMessagereply()}</p>
+          </div>
           <input
             type="text"
             name="username"
@@ -68,6 +71,7 @@ class RegisterForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.username} />
+          <label>Username</label>
           <input
             type="password"
             name="password"
@@ -75,6 +79,7 @@ class RegisterForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.password} />
+          <label>Password</label>
           <input
             type="number"
             name="bodyweight"
@@ -82,6 +87,7 @@ class RegisterForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.bodyweight} />
+          <label>Bodyweight in kg</label>
           <input
             type="number"
             name="dailydose"
@@ -89,6 +95,7 @@ class RegisterForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.dailydose} />
+          <label>Daily dose in mg</label>
           <input
             type="number"
             name="goaldose"
@@ -97,9 +104,6 @@ class RegisterForm extends React.Component {
             onChange={this.handleInput}
             value={this.state.goaldose} />
           <label>Recommended cumulative dose is 120-150 mg/kg</label>
-          <div id="message">
-            {this.getMessagereply()}
-          </div>
           <button type="submit">Save</button>
         </form>
       </div>

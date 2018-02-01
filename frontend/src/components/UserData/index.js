@@ -21,7 +21,7 @@ class UserData extends React.Component {
     const headers = new Headers()
     headers.append("token", this.props.accessToken)
 
-    fetch(`http://localhost:8080/users/${this.props.userId}`, { headers }).then(response => (
+    fetch(`https://isotretinoin-log.herokuapp.com/users/${this.props.userId}`, { headers }).then(response => (
       response.json()
     )).then(json => {
       this.setState({
@@ -45,7 +45,7 @@ class UserData extends React.Component {
     }, () => { // Callback function, invoked after lines above
       const headers = new Headers()
       headers.append("token", this.props.accessToken)
-      fetch(`http://localhost:8080/users/${this.props.userId}`, {
+      fetch(`https://isotretinoin-log.herokuapp.com/users/${this.props.userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -69,18 +69,27 @@ class UserData extends React.Component {
     this.props.Logout()
   }
 
+  showMessage = () => (
+    this.state.dosetaken === (this.state.goaldose * this.state.bodyweight)
+  )
+
   render() {
     const totaldose = this.state.bodyweight * this.state.goaldose
     const daysleft = (totaldose - this.state.dosetaken) / this.state.dailydose
+    const Completemessage = () => (
+      <div className="completeMessage">
+        <h2>YOU ARE DONE!</h2>
+      </div>
+    )
 
     return (
       <div className="userData">
         <Header />
         <div className="stateWrapper">
-            <p>Weight: {this.state.bodyweight} kg</p>
-            <p>Dose per day: {this.state.dailydose} mg/day</p>
-            <p>Goaldose: {this.state.goaldose} mg/kg</p>
-          </div>
+          <p>Weight: {this.state.bodyweight} kg</p>
+          <p>Dose per day: {this.state.dailydose} mg/day</p>
+          <p>Goaldose: {this.state.goaldose} mg/kg</p>
+        </div>
         <div className="calcWrapper">
           <div className="card" id="first"><h3>Dose Taken:</h3><p>{this.state.dosetaken} mg</p></div>
           <div className="card" id="second"><h3>Total Dose:</h3><p>{totaldose} mg</p></div>
@@ -93,6 +102,7 @@ class UserData extends React.Component {
         <div className="buttonWrapper">
           <button
             id="dayspassed"
+            disabled={this.state.dosetaken === totaldose}
             onClick={this.updateCounter}> Take dose
           </button>
           <div className="buttonFoot">
@@ -100,6 +110,7 @@ class UserData extends React.Component {
             <button><Link to="/settings">Settings</Link></button>
           </div>
         </div>
+        {this.showMessage() ? <Completemessage /> : null}
       </div>
     )
   }

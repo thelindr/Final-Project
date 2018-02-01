@@ -13,3 +13,13 @@
 width: 100%;
 animation: fadeIn 0.5s ease-in-out;
 }
+
+#message {
+  margin: auto;
+  animation: fadeIn 0.7s ease-in-out;
+  text-align: center;
+}
+
+#message p {
+  color: #3be52b;
+}

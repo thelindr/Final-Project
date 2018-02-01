@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    fetch("http://localhost:8080/login", {
+    fetch("https://isotretinoin-log.herokuapp.com/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -65,6 +65,7 @@ class LoginForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.username} />
+          <label>Username</label>
           <input
             type="password"
             name="password"
@@ -72,6 +73,7 @@ class LoginForm extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.password} />
+          <label>Password</label>
           <button type="submit">Login</button>
         </form>
         <button onClick={this.handleClick}>{this.getButtontext()}</button>

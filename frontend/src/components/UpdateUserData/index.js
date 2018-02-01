@@ -26,7 +26,7 @@ class UpdateUserData extends React.Component {
     const headers = new Headers()
     headers.append("token", this.props.accessToken)
 
-    fetch(`http://localhost:8080/users/${this.props.userId}`, {
+    fetch(`https://isotretinoin-log.herokuapp.com/users/${this.props.userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -66,6 +66,7 @@ class UpdateUserData extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.bodyweight} />
+          <label>Bodyweight in kg</label>
           <input
             type="number"
             name="dailydose"
@@ -73,6 +74,23 @@ class UpdateUserData extends React.Component {
             required
             onChange={this.handleInput}
             value={this.state.dailydose} />
+          <label>Daily dose in mg</label>
+          <input
+            type="number"
+            name="dayspassed"
+            placeholder="days passed"
+            required
+            onChange={this.handleInput}
+            value={this.state.dayspassed} />
+          <label>Days passed</label>
+          <input
+            type="number"
+            name="dosetaken"
+            placeholder="dose taken"
+            required
+            onChange={this.handleInput}
+            value={this.state.dosetaken} />
+          <label>Dose taken</label>
           <input
             type="number"
             name="goaldose"
@@ -81,24 +99,14 @@ class UpdateUserData extends React.Component {
             onChange={this.handleInput}
             value={this.state.goaldose} />
           <label>Recommended cumulative dose is 120-150 mg/kg</label>
-          <input
-            type="number"
-            name="dayspassed"
-            placeholder="days passed"
-            required
-            onChange={this.handleInput}
-            value={this.state.dayspassed} />
-          <input
-            type="number"
-            name="dosetaken"
-            placeholder="dose taken"
-            required
-            onChange={this.handleInput}
-            value={this.state.dosetaken} />
 
           <button type="submit">Update</button>
         </form>
-        <button id="closebutton"><Link to="/">Close</Link></button>
+        <div className="buttonholder">
+          <div className="divider">
+            <button id="closebutton"><Link to="/">exit</Link></button>
+          </div>
+        </div>
       </div>
     )
   }

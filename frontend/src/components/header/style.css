@@ -1,11 +1,8 @@
 .header {
   width: 80%;
   margin: auto;
-  height: 50px;
 }
 
-@media (min-width: 900px) {
-    .header {
-      width: 20%;
-}
+.header h2 {
+  font-size: 20px;
 }
