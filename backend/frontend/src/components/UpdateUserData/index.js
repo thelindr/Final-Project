@@ -98,7 +98,7 @@ class UpdateUserData extends React.Component {
 
           <button type="submit">Update</button>
         </form>
-        <button><Link to="/">Close</Link></button>
+        <button id="closebutton"><Link to="/">Close</Link></button>
       </div>
     )
   }

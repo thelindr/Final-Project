@@ -30,6 +30,8 @@
 }
 
 .calcWrapper {
+  width: 300px;
+  margin: auto;
   display: grid;
   grid-template-columns: 150px 150px;
   grid-template-rows: 150px 150px;
@@ -74,6 +76,8 @@
 }
 
 .buttonWrapper {
+  width: 300px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,4 +87,16 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .userData {
+    width: 50%;
+  }
+}
+
+@media (min-width: 900px) {
+    .userData {
+      width: 30%;
+}
 }

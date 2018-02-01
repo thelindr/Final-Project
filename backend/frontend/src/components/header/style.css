@@ -1,8 +1,15 @@
 .header {
-  width: 100%;
+  width: 80%;
+  margin: auto;
   height: 60px;
   /* background-image: url("Isotretinoin-structure.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat; */
+}
+
+@media (min-width: 900px) {
+    .header {
+      width: 20%;
+}
 }

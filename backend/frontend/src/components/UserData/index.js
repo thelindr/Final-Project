@@ -76,11 +76,11 @@ class UserData extends React.Component {
       <div>
         <Header />
         <div className="userData">
-          <div className="stateWrapper">
+          {/* <div className="stateWrapper">
             <p>Weight: {this.state.bodyweight} kg</p>
             <p>Dose per day: {this.state.dailydose} mg/day</p>
             <p>Goaldose: {this.state.goaldose} mg/kg</p>
-          </div>
+          </div> */}
           <div className="calcWrapper">
             <div className="card" id="first"><h3>Dose Taken:</h3><p>{this.state.dosetaken} mg</p></div>
             <div className="card" id="second"><h3>Total Dose:</h3><p>{totaldose} mg</p></div>
