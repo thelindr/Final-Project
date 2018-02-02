@@ -78,7 +78,7 @@ class UserData extends React.Component {
     const daysleft = (totaldose - this.state.dosetaken) / this.state.dailydose
     const Completemessage = () => (
       <div className="completeMessage">
-        <h2>YOU ARE DONE!</h2>
+        <h2>Goaldose reached!</h2>
       </div>
     )
 

@@ -150,6 +150,13 @@
   font-size: 50px;
   font-weight: 600;
   color: #3ca513;
+  margin-top: 0px;
+  text-shadow: -5px 0px 3px pink;
+}
+
+.completeMessage h3 {
+  font-size: 30px;
+  color: #3ca513;
 }
 
 @media (min-width: 481px) and (max-width: 899px) {
